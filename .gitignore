@@ -1,0 +1,6 @@
+__pycache__/
+.vscode/
+rag_env/
+.venv/
+venv/
+data/pdf_files/
