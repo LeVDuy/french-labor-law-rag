@@ -5,3 +5,4 @@ rag_env/
 venv/
 data/pdf_files/
 .DS_Store
+**/.DS_Store
