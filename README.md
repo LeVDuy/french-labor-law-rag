@@ -1,4 +1,4 @@
-# ⚖️ Agentic Legal RAG : Assistant en Droit du Travail Français
+# Agentic Legal RAG : Assistant en Droit du Travail Français
 
 ![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)
 ![LangGraph](https://img.shields.io/badge/LangGraph-Agentic_Orchestrator-orange)
