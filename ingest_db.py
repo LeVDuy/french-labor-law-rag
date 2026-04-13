@@ -14,8 +14,13 @@ warnings.filterwarnings("ignore")
 
 def get_vector_base():
     print("Initialisation du système de recherche vectorielle (Hybrid)...")
+    os.environ["PYTORCH_MPS_HIGH_WATERMARK_RATIO"] = "0.0"
     
-    dense_embeddings = HuggingFaceEmbeddings(model_name=configs.DENSE_MODEL_NAME)
+    dense_embeddings = HuggingFaceEmbeddings(
+        model_name=configs.DENSE_MODEL_NAME, 
+        model_kwargs={'device': 'mps'},
+        encode_kwargs={'batch_size': 8}
+    )
     sparse_embeddings = FastEmbedSparse(model_name=configs.SPARSE_MODEL_NAME)
     embedding_dimension = len(dense_embeddings.embed_query("test"))
     client = QdrantClient(url=str(configs.QDRANT_URL))
@@ -70,14 +75,29 @@ def run_ingestion():
             md_text = f.read()
  
         header_docs = md_splitter.split_text(md_text)
+    
+        for hd in header_docs:
+            hd.metadata["raw_parent_content"] = hd.page_content
+            
         chunks = text_splitter.split_documents(header_docs)
         for c in chunks:
             c.metadata["source"] = path.name
             c.metadata["doc_type"] = parent_folder_name         
             article_title = c.metadata.get("Article", "")
-            if article_title:
-                c.page_content = f"Article : {article_title}\nContenu : {c.page_content}"
+            source_name = path.stem
             
+            raw_parent = c.metadata.get("raw_parent_content", c.page_content)
+            
+            if article_title:
+                c.page_content = f"Source : {source_name}\nArticle : {article_title}\nContenu : {c.page_content}"
+                c.metadata["formatted_parent_content"] = f"Source : {source_name}\nArticle : {article_title}\nContenu : {raw_parent}"
+            else:
+                c.page_content = f"Source : {source_name}\nContenu : {c.page_content}"
+                c.metadata["formatted_parent_content"] = f"Source : {source_name}\nContenu : {raw_parent}"
+            
+            if "raw_parent_content" in c.metadata:
+                del c.metadata["raw_parent_content"]
+                
             all_chunks.append(c)
     client = QdrantClient(url=str(configs.QDRANT_URL))
     if client.collection_exists(configs.COLLECTION_NAME):
