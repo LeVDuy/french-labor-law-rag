@@ -13,7 +13,7 @@ QDRANT_URL = "http://localhost:6333"
 COLLECTION_NAME = "french_law_hybrid"
 
 # EMBEDDINGS CONFIG
-DENSE_MODEL_NAME = "intfloat/multilingual-e5-base"
+DENSE_MODEL_NAME = "BAAI/bge-m3"
 SPARSE_MODEL_NAME = "Qdrant/bm25"
 
 # RERANKER CONFIG
@@ -21,8 +21,8 @@ SPARSE_MODEL_NAME = "Qdrant/bm25"
 RERANKER_MODEL_NAME = "antoinelouis/crossencoder-camembert-base-mmarcoFR"
 
 # CHUNKING CONFIG
-CHILD_CHUNK_SIZE = 700
-CHILD_CHUNK_OVERLAP = 150
+CHILD_CHUNK_SIZE = 1500
+CHILD_CHUNK_OVERLAP = 250
 
 # LLM CONFIG
 LLM_PROVIDER = "lmstudio"  
@@ -30,4 +30,4 @@ LLM_TEMPERATURE = 0.0
 LMSTUDIO_BASE_URL = "http://localhost:1234/v1"
 LMSTUDIO_MODEL = "local-model"
 
-GROQ_API_KEY = "your_groq_api_key_here"
+GROQ_API_KEY = "your_groq_api_key"
