@@ -1,8 +1,32 @@
+# Python
 __pycache__/
-.vscode/
-rag_env/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# Virtual environments
 .venv/
 venv/
-data/pdf_files/
+rag_env/
+
+# IDE
+.vscode/
+.idea/
+
+# Environment
+.env
+
+# Data
+data/raw/
+
+# Evaluation results
+evaluation_results.json
+
+# OS
 .DS_Store
 **/.DS_Store
+
+# Docker
+docker-compose.override.yml

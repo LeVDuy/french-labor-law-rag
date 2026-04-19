@@ -1,16 +1,34 @@
-gradio
+#  Core RAG Pipeline 
 langchain
 langchain-core
 langchain-community
 langchain-classic
 langgraph
 langchain-openai
-langchain-ollama
 langchain-huggingface
 langchain-qdrant
 qdrant-client
 sentence-transformers
 rank-bm25
+
+#  API Framework 
+fastapi
+uvicorn[standard]
+pydantic-settings
+
+#  UI 
+streamlit
+
+#  Data Processing 
 pymupdf4llm
 docling
 markdownify
+beautifulsoup4
+requests
+
+#  Evaluation 
+groq
+
+#  Testing 
+pytest
+httpx
